@@ -1,11 +1,15 @@
-# Use Java 21 (change if your app uses a different version)
-FROM eclipse-temurin:21-jdk-jammy
+FROM maven:3.9.9-eclipse-temurin-21 AS build
 
-# Set working directory
 WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
 
-# Copy jar file
-COPY target/*.jar app.jar
+# مرحله 2: Run the app
+FROM eclipse-temurin:21-jre-jammy
 
-# Run the app
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
+
+EXPOSE 8080
+
 ENTRYPOINT ["java","-jar","app.jar"]
