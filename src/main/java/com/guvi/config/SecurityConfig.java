@@ -25,6 +25,11 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
       http.csrf(csrf -> csrf.disable());
       http.authorizeHttpRequests(auth ->
               auth.requestMatchers("/api/auth/**").permitAll()
+                      .requestMatchers(
+                              "/swagger-ui/**",
+                              "/v3/api-docs/**",
+                              "/swagger-ui.html"
+                      ).permitAll()
                       .requestMatchers("/api/categories/**").hasRole("ADMIN")
                       .requestMatchers(HttpMethod.GET,"/api/products/**").hasAnyRole("USER", "ADMIN")
                       .requestMatchers("/api/products/**").hasRole("ADMIN")
