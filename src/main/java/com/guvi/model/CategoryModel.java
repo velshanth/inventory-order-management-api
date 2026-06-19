@@ -1,42 +1,52 @@
-    package com.guvi.model;
+package com.guvi.model;
 
-    import org.springframework.data.annotation.Id;
-    import org.springframework.data.mongodb.core.mapping.Document;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-    @Document(collection = "categories")
-    public class CategoryModel {
-        @Id
-        private String id;
-        private String name;
-        private Boolean active;
+@Document(collection = "categories")
+public class CategoryModel {
 
-        public CategoryModel(String id, String name, Boolean active) {
-            this.id = id;
-            this.name = name;
-            this.active = active;
-        }
+    @Id
+    private String id;
 
-        public boolean isActive() {
-            return active;
-        }
+    @NotBlank(message = "Category name is required")
+    private String name;
 
-        public void setActive(boolean active) {
-            this.active = active;
-        }
+    @NotNull(message = "Active status is required")
+    private Boolean active;
 
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public String getId() {
-            return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
-        }
+    public CategoryModel() {
     }
+
+    public CategoryModel(String id, String name, Boolean active) {
+        this.id = id;
+        this.name = name;
+        this.active = active;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+}

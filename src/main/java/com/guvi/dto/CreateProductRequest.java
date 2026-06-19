@@ -8,6 +8,7 @@ import java.util.Set;
 public class CreateProductRequest {
     @NotBlank(message = "Product name is required")
     private String name;
+    @NotBlank(message = "Description is required")
     private String description;
     @NotNull
     @Positive(message = "Price must be greater than 0")
